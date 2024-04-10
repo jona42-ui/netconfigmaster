@@ -16,16 +16,14 @@ def generate_yaml(input_text):
     # Decode the generated text
     generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
 
-    # Extract bridge name and interface names from the generated text
     bridge_name = None
     interface_names = []
 
-    # Split the generated text into lines and iterate through them
+   
     for line in generated_text.split('\n'):
-        # Check if the line contains information about a bridge
+        
         if "linux bridge" in line.lower():
-            bridge_name = line.split()[-1]  # Extract the last word as the bridge name
-        # Check if the line contains information about interfaces
+            bridge_name = line.split()[-1]  
         elif "using" in line.lower():
             interface_names = line.split("using")[-1].strip().split(" and ")
 
@@ -52,5 +50,5 @@ if __name__ == "__main__":
     # Generate YAML configuration
     yaml_output = generate_yaml(input_text)
 
-    # Print the YAML configuration
+   
     print(yaml_output)
