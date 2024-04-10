@@ -1,0 +1,1 @@
+I want to set up a bridge called mybridge with eth0 and eth1 as its ports.
