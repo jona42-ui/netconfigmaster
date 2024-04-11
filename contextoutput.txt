@@ -1,0 +1,16 @@
+(base) thembo@workspace:~/fedora/dev/nlpdemo$ python contextdemo.py 
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+Generated text:
+Please create a linux bridge br0 using eth1 and eth2.What is the name of the bridge?
+
+The bridge is a Linux bridge that is used to connect to the network. It is used to connect to the network and to the other devices on the network.
+
+The bridge is a Linux bridge that is used to connect to the network. It is used to connect to the network and to the other devices on the network. The bridge is a Linux bridge that is used to connect to the network. It is used to connect to the network. The bridge is a Linux bridge that is used to connect to the network. It is used to connect to the network. The bridge is a Linux bridge that is used to connect to the network. It is used to connect to the network. The bridge is a Linux bridge that is used to connect to the network. It is used to connect to the network. The bridge is a Linux bridge that is used to connect to the network
+
+AI mentioned the bridge name 'br0'. Proceeding to ask about the ports.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+
+Generated text (asking about ports):
+Please create a linux bridge br0 using eth1 and eth2.What is the name of the bridge?What are the ports of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is the name of the bridge?What is

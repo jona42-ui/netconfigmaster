@@ -30,8 +30,8 @@ if "br0" in generated_text:
     prompt_ids = tokenizer.encode(prompt, return_tensors="pt")
     input_ids = torch.cat([input_ids, prompt_ids], dim=-1)
     output = model.generate(input_ids, max_length=200, num_return_sequences=1)
-    generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+    generated = tokenizer.decode(output[0], skip_special_tokens=True)
     print("\nGenerated text (asking about ports):")
-    print(generated_text)
+    print(generated)
 else:
     print("\nAI did not mention the bridge name. Unable to proceed with asking about ports.")
