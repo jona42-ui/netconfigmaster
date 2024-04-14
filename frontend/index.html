@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nmstate UI Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Nmstate UI Demo</h2>
+    <label for="inputText">Enter Natural Language:</label>
+    <input type="text" id="inputText" placeholder="Create a linux bridge named br0 using eth1 and eth2">
+    <button onclick="submitInput()">Submit</button>
+    <hr>
+    <h3>Generated Nmstate State:</h3>
+    <textarea id="outputState" rows="6" readonly></textarea>
+</div>
+
+<script>
+    function submitInput() {
+        // Get user input
+        var userInput = document.getElementById("inputText").value;
+        // Send user input to backend for processing
+        // Update textarea with generated nmstate state
+        document.getElementById("outputState").value = "Generated nmstate state based on input: " + userInput;
+    }
+</script>
+
+</body>
+</html>
