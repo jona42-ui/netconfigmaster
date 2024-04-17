@@ -39,6 +39,7 @@ flask --app app.y run
 4. Click on "Show Image" to visualize the network topology image.
 
 ## NetVisor Integration
+![output](https://github.com/jona42-ui/nlpdemo/assets/78595738/11fc56dd-02e5-44f2-b0b5-82c6a4f26257)
 
 
 This demo application also integrates with NetVisor for network topology visualization. NetVisor is a host network topology visualization tool that generates images representing the network topology.
