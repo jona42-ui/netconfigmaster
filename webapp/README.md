@@ -70,6 +70,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Credits
 
-- Developed by [Your Name](https://github.com/jona42-ui)
-- Nmstate library: [Nmstate GitHub Repository](https://github.com/nmstate/nmstate)
-- NetVisor tool: [NetVisor GitHub Repository](https://github.com/ffmancera/NetVisor)
+- Developed by [thembo jonathan](https://github.com/jona42-ui)
+- Nmstate library: [Nmstate ](https://github.com/nmstate/nmstate)
+- NetVisor tool: [NetVisor](https://github.com/ffmancera/NetVisor)
