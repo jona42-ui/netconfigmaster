@@ -1,2 +1,1 @@
 Flask==3.0.3
-libnmstate==2.2.27
