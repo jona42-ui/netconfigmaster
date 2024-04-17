@@ -1,6 +1,8 @@
 # Nmstate UI Demo
-![Screenshot from 2024-04-17 18-20-01](https://github.com/jona42-ui/nlpdemo/assets/78595738/03847966-0875-4b4e-875c-a67ffbc1cb52)
+[Screencast from 04-17-2024 07:18:05 PM.webm](https://github.com/jona42-ui/nlpdemo/assets/78595738/d75133a9-946b-42ae-b562-2cec21150d20)
 
+
+[Screencast from 04-17-2024 07:19:34 PM.webm](https://github.com/jona42-ui/nlpdemo/assets/78595738/ab77485a-3390-4b0e-a7e4-58ef4975cf67)
 
 
 This is a simple Flask web application that demonstrates the usage of the Nmstate library to interact with network state in Python.
@@ -32,7 +34,7 @@ or
 flask --app app.y run
 ```
 
-2. Open your web browser and go to [http://localhost:5000](http://localhost:5000).
+2. Open your web browser and go to [http://localhost:5000](http://127.0.0.1:5000).
 
 3. Enter natural language commands related to network configuration in the input field and click "Submit" to see the generated network state.
 
@@ -68,6 +70,10 @@ To use NetVisor with this application:
     ├── image.html
     └── index.html
 ```
+
+### DEMO
+![Screenshot from 2024-04-17 19-14-55](https://github.com/jona42-ui/nlpdemo/assets/78595738/f1c7afbe-7e88-4ae4-837e-c5593479d12b)
+
 
 ## License
 
