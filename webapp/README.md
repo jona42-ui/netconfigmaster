@@ -2,6 +2,9 @@
 
 ![Screenshot from 2024-04-17 19-14-55](https://github.com/jona42-ui/nlpdemo/assets/78595738/f1c7afbe-7e88-4ae4-837e-c5593479d12b)
 
+![image](https://github.com/jona42-ui/nlpdemo/assets/78595738/1cf53e68-8769-4050-b0b1-d45e6e2e678e)
+
+
 This is a simple Flask web application that demonstrates the usage of the Nmstate library to interact with network state in Python.
 
 ## Installation
