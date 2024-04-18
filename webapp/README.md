@@ -28,7 +28,7 @@ python app.py
 
 or
 
-flask --app app.y run
+flask --app app.py run
 ```
 
 2. Open your web browser and go to [http://localhost:5000](http://127.0.0.1:5000).
