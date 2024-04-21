@@ -1,11 +1,18 @@
-from flask import Flask, render_template, request, send_file
+import os
+from flask import Flask, jsonify, render_template, request, send_file
 import libnmstate
 from libnmstate.schema import Interface
 import subprocess
-import json
 import yaml
 
 app = Flask(__name__)
+
+# path to NetVisor executable
+import os
+
+# relative path
+APP_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+NETVISOR_PATH = os.path.join(APP_DIRECTORY, '..', '..', 'NetVisor', 'target', 'debug', 'netvisor')
 
 @app.route('/')
 def index():
@@ -23,11 +30,6 @@ def generate():
     net_state = libnmstate.show()
     nmstate_output_text = yaml.dump(net_state)
 
-
-    # network state image
-    #netvisor_output = subprocess.run(['/home/thembo/fedora/dev/NetVisor/target/debug/netvisor', '--input', json.dumps(net_state)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    #netvisor_output_text = netvisor_output.stdout.decode('utf-8')
-
     # Get user input
     user_input = request.form['inputText']
 
@@ -39,14 +41,14 @@ def generate_image():
     try:
         # Generate the image file
         output_path = '/static/output.png'
-        netvisor_output = subprocess.run(['/home/thembo/fedora/dev/NetVisor/target/debug/netvisor', 'show', '--file', output_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        netvisor_output = subprocess.run([NETVISOR_PATH, 'show', '--file', output_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if netvisor_output.returncode == 0:
             # Send the generated image file as a response
             return send_file(output_path, mimetype='image/png')
         else:
             return "Error generating image"
-    except subprocess.CalledProcessError:
-        return "Error generating image"
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # Route for displaying the image template
 @app.route('/show_image', methods=['GET'])
