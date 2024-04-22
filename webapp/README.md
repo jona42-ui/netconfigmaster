@@ -64,11 +64,12 @@ To use NetVisor with this application:
 ├── __pycache__
 │   ├── app.cpython-310.pyc
 │   └── __init__.cpython-310.pyc
+├── README.md
 ├── requirements.txt
 ├── static
 └── templates
-    ├── image.html
     └── index.html
+
 ```
 
 ### DEMO
