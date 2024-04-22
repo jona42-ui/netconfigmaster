@@ -34,7 +34,9 @@ def show_image():
     try:
         # Generate the image file
         output_path = 'static/output.png'
-        netvisor_output = subprocess.run([NETVISOR_PATH, 'show', '--file', output_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        netvisor_output = subprocess.run([NETVISOR_PATH, 'show', '--file', output_path], 
+                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                 check=False)  
         if netvisor_output.returncode == 0:
             # Send the generated image file as a response
             return send_file(output_path, mimetype='image/png')
