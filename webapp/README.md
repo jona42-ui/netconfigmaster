@@ -77,8 +77,8 @@ To use NetVisor with this application:
 [Screencast from 04-17-2024 07:18:05 PM.webm](https://github.com/jona42-ui/nlpdemo/assets/78595738/d75133a9-946b-42ae-b562-2cec21150d20)
 
 
+[Screencast from 04-22-2024 07:33:07 AM.webm](https://github.com/jona42-ui/nlpdemo/assets/78595738/6d4eb9bf-abfc-4f36-a1e4-99e091df50fe)
 
-[Screencast from 04-17-2024 07:19:34 PM.webm](https://github.com/jona42-ui/nlpdemo/assets/78595738/ab77485a-3390-4b0e-a7e4-58ef4975cf67)
 
 
 
