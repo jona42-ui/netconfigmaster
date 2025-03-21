@@ -1,8 +1,0 @@
-"I need to configure the network interfaces as follows:
-
-    eth1 should be in the 'down' state.
-    eth2 should be an Ethernet interface in the 'down' state.
-    bond0 should not exist.
-    br0 should not exist.
-    vlan29 should not exist.
-    br29 should not exist."

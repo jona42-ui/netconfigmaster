@@ -1,8 +1,0 @@
-interfaces:
-  - name: mybridge
-    type: linux-bridge
-    state: up
-    bridge:
-      ports:
-        - name: eth0
-        - name: eth1

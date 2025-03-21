@@ -1,1 +1,0 @@
-Please create a Linux bridge named br0 using eth1 and eth2 as its ports.

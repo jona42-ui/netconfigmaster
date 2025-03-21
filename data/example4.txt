@@ -1,8 +1,0 @@
-"I would like to configure the network with the following setup:
-
-    eth1 should be up and running.
-    eth2 should be up and running.
-    bond0 should be up and running, with eth1 and eth2 configured for active-backup mode.
-    br0 should be up and running, with bond0 as its port.
-    vlan29 should be up and running, with bond0 as its base interface and VLAN ID 29.
-    br29 should be up and running, with vlan29 as its port."
