@@ -16,12 +16,14 @@
             background-color: #f4f4f4;
         }
         .container {
-            width: 400px;
+            width: 100%;
+            max-width: 400px;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
+            margin: 20px;
         }
         .container:hover {
             transform: scale(1.02);
@@ -33,10 +35,11 @@
         }
         input[type="text"], textarea {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-bottom: 16px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
             transition: border-color 0.2s;
         }
         input[type="text"]:focus, textarea:focus {
@@ -51,6 +54,7 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.2s;
+            width: 100%;
         }
         button:hover {
             background-color: #0056b3;
