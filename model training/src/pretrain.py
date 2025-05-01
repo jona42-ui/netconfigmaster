@@ -151,7 +151,6 @@ def main():
         save_total_limit=3,  # limits the total amount of checkpoints
         prediction_loss_only=True,
         gradient_accumulation_steps=2,
-        evaluation_strategy="no",
         use_cpu=True,  # Use CPU only for integration test
     )
 
