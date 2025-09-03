@@ -1,12 +1,100 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for more information:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-# https://containers.dev/guide/dependabot
+# Dependabot configuration for NetConfigMaster
+# This configuration enables automated dependency updates for multiple ecosystems
 
 version: 2
 updates:
- - package-ecosystem: "devcontainers"
-   directory: "/"
-   schedule:
-     interval: weekly
+  # Python dependencies (Poetry)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 10
+    assignees:
+      - "jona42-ui"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "python"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    groups:
+      transformers:
+        patterns:
+          - "transformers"
+          - "torch"
+          - "datasets"
+      dev-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "pytest*"
+          - "black"
+          - "isort"
+          - "flake8"
+          - "pylint"
+          - "mypy"
+      web-dependencies:
+        patterns:
+          - "flask*"
+          - "gradio*"
+
+  # Docker dependencies
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 5
+    assignees:
+      - "jona42-ui"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "docker"
+
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "09:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 5
+    assignees:
+      - "jona42-ui"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "ci/cd"
+
+  # Dev Container dependencies
+  - package-ecosystem: "devcontainers"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 2
+    assignees:
+      - "jona42-ui"
+    commit-message:
+      prefix: "devcontainer"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "devcontainer"

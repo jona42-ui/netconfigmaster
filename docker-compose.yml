@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+  # Development environment
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: netconfigmaster-dev
+    volumes:
+      - .:/app
+      - poetry-cache:/root/.cache/pypoetry
+    ports:
+      - "5000:5000"
+      - "8000:8000"  # For docs server
+    environment:
+      - PYTHONPATH=/app
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+  # Production web UI
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: netconfigmaster-web
+    ports:
+      - "5000:5000"
+    environment:
+      - PYTHONPATH=/app
+      - FLASK_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Training service
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: training
+    container_name: netconfigmaster-train
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - training-cache:/root/.cache
+    environment:
+      - PYTHONPATH=/app
+      - CUDA_VISIBLE_DEVICES=0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    profiles:
+      - training
+
+  # Evaluation service
+  evaluate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: evaluation
+    container_name: netconfigmaster-evaluate
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    environment:
+      - PYTHONPATH=/app
+    profiles:
+      - evaluation
+
+  # Jupyter notebook for experimentation
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: netconfigmaster-jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+      - jupyter-data:/root/.jupyter
+    environment:
+      - PYTHONPATH=/app
+    command: >
+      bash -c "poetry run jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''"
+    profiles:
+      - jupyter
+
+  # Documentation server
+  docs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: netconfigmaster-docs
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: poetry run mkdocs serve --dev-addr=0.0.0.0:8000
+    profiles:
+      - docs
+
+volumes:
+  poetry-cache:
+  training-cache:
+  jupyter-data:
+
+networks:
+  default:
+    name: netconfigmaster-network

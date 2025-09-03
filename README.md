@@ -1,3 +1,18 @@
+````markdown
+---
+
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+# 🚀 Contributing
+
+We welcome contributions from the community! Please read our [Code of Conduct](CODE_OF_CONDUCT.md) and [Contributing Guidelines](CONTRIBUTING.md) before opening issues or pull requests.
+
+- To report bugs or request features, use the GitHub Issues tab.
+- For code contributions, fork the repo and submit a pull request.
+- See `.github/ISSUE_TEMPLATE.md` and `.github/PULL_REQUEST_TEMPLATE.md` for templates.
+
+---
 
 # Translating Natural Language into Nmstate States
 
@@ -6,13 +21,29 @@ model for generating Nmstate YAML states.
 
 ## Project Structure
 
-* `./dataset/`: Contains the dataset for traning and evaluation.
-* `./evaluation_results/`: Contains the evaluation result of the most recent
-    YAMLsmith model.
-* `./metrics/`: Contains the customized evaluation metrics (`nmstate_correct`,
-  `yaml_correct` , `levenshtein_distance` ) for evaluating the model.
-* `./src/`: Contains the pipeline for pretraing, training, and evaluating the model,
-    as well as the UI for hosting the model.
+```
+netconfigmaster/
+├── data/                    # Datasets and configurations
+│   ├── raw/                # Unprocessed datasets
+│   ├── processed/          # Cleaned datasets
+│   ├── training/           # Training configurations
+│   ├── evaluation/         # Evaluation configurations
+│   └── evaluation_results/ # Model evaluation results
+├── src/                     # Source code
+│   ├── pretrain.py         # Pretraining pipeline
+│   ├── train.py            # Training pipeline
+│   ├── model_evaluation.py # Evaluation framework
+│   ├── ui.py               # Web interface
+│   └── utils.py            # Utility functions
+├── metrics/                 # Custom evaluation metrics
+│   ├── nmstate_correct/    # Nmstate schema validation
+│   ├── yaml_correct/       # YAML syntax validation
+│   └── levenshtein_distance/ # Edit distance metric
+├── docs/                    # Extended documentation
+├── tests/                   # Unit and integration tests
+├── requirements.txt         # Python dependencies
+└── pylintrc                # Code quality configuration
+```
 
 ## Workflows
 
@@ -53,32 +84,93 @@ model for generating Nmstate YAML states.
   cached data if available, or generate new predictions for evaluation.
 
 
-## Installation
+## Quick Start
 
-Before running the script, ensure you have Python 3.8+ installed. You can then install
-the necessary dependencies by running:
+### Prerequisites
+- Python 3.8+ 
+- [Poetry](https://python-poetry.org/docs/#installation) (recommended)
+- [Docker](https://docs.docker.com/get-docker/) (optional, for containerized development)
+- [VS Code](https://code.visualstudio.com/) with Dev Containers extension (optional)
 
+### Installation Options
+
+#### Option 1: Using Poetry (Recommended)
 ```bash
-pip install -r requirements.txt
+# Clone the repository
+git clone https://github.com/jona42-ui/netconfigmaster.git
+cd netconfigmaster
+
+# Run setup script
+chmod +x scripts/setup.sh && ./scripts/setup.sh
+
+# Or manually:
+poetry install --with dev,docs
+poetry shell
 ```
 
-## Usage
-
-1. Run the Flask application:
-
+#### Option 2: Using Docker
 ```bash
-python app.py
+# Development environment
+docker-compose up dev
 
-or
-
-flask --app app.py run
+# Production web UI
+docker-compose up web
 ```
 
-2. Open your web browser and go to [http://localhost:5000](http://127.0.0.1:5000).
+#### Option 3: Using VS Code Dev Containers
+1. Open the project in VS Code
+2. Click "Reopen in Container" when prompted
+3. Or use Command Palette: "Dev Containers: Reopen in Container"
 
-3. Enter natural language commands related to network configuration in the input field and click "Submit" to see the generated network state.
+### Usage
 
-4. Click on "Show Image" to visualize the network topology image.
+#### 1. Train a model
+```bash
+# Using Poetry
+poetry run python src/pretrain.py  # Pretrain on YAML data
+poetry run python src/train.py     # Fine-tune on network config data
+
+# Using Docker
+docker-compose --profile training up train
+```
+
+#### 2. Evaluate the model
+```bash
+# Using Poetry
+poetry run python src/model_evaluation.py
+
+# Using Docker
+docker-compose --profile evaluation up evaluate
+```
+
+#### 3. Run the web interface
+```bash
+# Using Poetry
+poetry run python src/ui.py
+
+# Using Docker
+docker-compose up web
+```
+
+#### 4. Development Tools
+```bash
+# Format and lint code
+./scripts/lint.sh
+
+# Run tests
+./scripts/test.sh
+
+# Build Docker images
+./scripts/build.sh
+```
+
+Open your browser and navigate to [http://localhost:5000](http://localhost:5000) to use the web interface.
+
+## Documentation
+
+- 📖 [Usage Guide](docs/USAGE.md) - Detailed usage instructions
+- 🏗️ [Architecture](docs/ARCHITECTURE.md) - System design and data flow
+- 📊 [Evaluation Results](data/evaluation_results/) - Latest model performance
 
 ## Evaluation Results and Metrics
 
@@ -144,4 +236,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Developed by [thembo jonathan](https://github.com/jona42-ui)
 - Nmstate library: [Nmstate ](https://github.com/nmstate/nmstate)
 - NetVisor tool: [NetVisor](https://github.com/ffmancera/NetVisor)
+````
 
