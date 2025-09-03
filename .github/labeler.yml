@@ -1,0 +1,81 @@
+# Auto-labeling configuration for PRs
+# https://github.com/actions/labeler
+
+# Source code changes
+'type: feature':
+- 'src/**/*.py'
+- '!src/test_*.py'
+- '!src/**/*_test.py'
+
+'type: bugfix':
+- 'src/**/*.py'
+- '!src/test_*.py'
+- '!src/**/*_test.py'
+
+# Documentation changes
+'type: docs':
+- 'docs/**/*'
+- '*.md'
+- 'README.md'
+- 'CHANGELOG.md'
+- 'CONTRIBUTING.md'
+
+# Configuration changes
+'type: config':
+- 'pyproject.toml'
+- 'requirements*.txt'
+- '.github/**/*'
+- 'Dockerfile*'
+- 'docker-compose*.yml'
+- '.devcontainer/**/*'
+
+# Test changes
+'type: test':
+- 'tests/**/*'
+- 'src/test_*.py'
+- 'src/**/*_test.py'
+- 'pytest.ini'
+- 'conftest.py'
+
+# CI/CD changes
+'type: ci':
+- '.github/workflows/**/*'
+- '.github/dependabot.yml'
+- 'scripts/**/*'
+
+# Metrics and evaluation
+'area: metrics':
+- 'metrics/**/*'
+- 'src/model_evaluation.py'
+
+# Training and model changes
+'area: ml':
+- 'src/pretrain.py'
+- 'src/train.py'
+- 'data/**/*'
+
+# UI changes
+'area: ui':
+- 'src/ui.py'
+
+# Dependencies
+'dependencies':
+- 'pyproject.toml'
+- 'requirements*.txt'
+- 'poetry.lock'
+
+# Security
+'security':
+- 'Dockerfile*'
+- '.github/workflows/security.yml'
+- 'src/security/**/*'
+
+# Performance
+'performance':
+- 'metrics/**/*'
+- 'src/model_evaluation.py'
+- 'benchmarks/**/*'
+
+# Breaking changes (detected by semantic-release)
+'breaking-change':
+- any: ['*']

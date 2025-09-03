@@ -1,0 +1,81 @@
+# Auto-assign configuration for PRs
+# https://github.com/kentaro-m/auto-assign-action
+
+# Pull request reviewers
+reviewers:
+  # Core team members (add actual usernames when available)
+  - core-team-member-1
+  - core-team-member-2
+
+# Pull request assignees
+assignees:
+  # Auto-assign PR author as default assignee
+  - author
+
+# Review assignment rules
+reviewGroups:
+  # ML/AI related changes
+  ml-team:
+    reviewers:
+      - ml-engineer-1
+      - ml-engineer-2
+    conditions:
+      - files:
+          - "src/train.py"
+          - "src/pretrain.py" 
+          - "src/model_evaluation.py"
+          - "data/**/*"
+          - "metrics/**/*"
+
+  # DevOps and infrastructure changes
+  devops-team:
+    reviewers:
+      - devops-engineer-1
+      - devops-engineer-2
+    conditions:
+      - files:
+          - ".github/workflows/**/*"
+          - "Dockerfile*"
+          - "docker-compose*.yml"
+          - ".devcontainer/**/*"
+          - "scripts/**/*"
+
+  # Security reviews
+  security-team:
+    reviewers:
+      - security-engineer-1
+    conditions:
+      - labels:
+          - "security-review-required"
+      - files:
+          - ".github/workflows/security.yml"
+          - "Dockerfile*"
+          - "pyproject.toml"
+
+  # Documentation reviews
+  docs-team:
+    reviewers:
+      - tech-writer-1
+      - tech-writer-2
+    conditions:
+      - files:
+          - "docs/**/*"
+          - "*.md"
+          - "README.md"
+
+# Global settings
+settings:
+  # Don't assign reviewers if PR is draft
+  skipDraft: true
+  
+  # Number of reviewers to assign
+  numberOfReviewers: 2
+  
+  # Number of assignees
+  numberOfAssignees: 1
+  
+  # Skip adding reviewers/assignees if any already exist
+  skipCollaboratorReviewers: false
+  
+  # Skip if PR author is in the reviewer list
+  skipRequestingReviewFromAuthor: true
