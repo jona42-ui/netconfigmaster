@@ -1,5 +1,3 @@
-````markdown
----
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -236,5 +234,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Developed by [thembo jonathan](https://github.com/jona42-ui)
 - Nmstate library: [Nmstate ](https://github.com/nmstate/nmstate)
 - NetVisor tool: [NetVisor](https://github.com/ffmancera/NetVisor)
-````
+
 
