@@ -1,0 +1,65 @@
+{
+  "model_name_or_path": "Salesforce/codet5-base",
+  "tokenizer_name": null,
+  "cache_dir": "./cache",
+  "use_fast_tokenizer": true,
+  "model_revision": "main",
+  "use_auth_token": null,
+  
+  "train_files": {
+    "generation": "data/training/generation_train.yaml",
+    "analysis": "data/training/analysis_train.yaml",
+    "translation": "data/training/translation_train.yaml"
+  },
+  "validation_files": {
+    "generation": "data/evaluation/generation_eval.yaml",
+    "analysis": "data/evaluation/analysis_eval.yaml", 
+    "translation": "data/evaluation/translation_eval.yaml"
+  },
+  "test_files": {
+    "generation": "data/evaluation/generation_test.yaml",
+    "analysis": "data/evaluation/analysis_test.yaml",
+    "translation": "data/evaluation/translation_test.yaml"
+  },
+  
+  "max_source_length": 512,
+  "max_target_length": 512,
+  "preprocessing_num_workers": 4,
+  "overwrite_cache": false,
+  
+  "output_dir": "./results/multitask",
+  "overwrite_output_dir": true,
+  "do_train": true,
+  "do_eval": true,
+  "do_predict": false,
+  "evaluation_strategy": "steps",
+  "eval_steps": 500,
+  "per_device_train_batch_size": 8,
+  "per_device_eval_batch_size": 8,
+  "gradient_accumulation_steps": 1,
+  "learning_rate": 5e-5,
+  "num_train_epochs": 3,
+  "max_steps": -1,
+  "warmup_ratio": 0.1,
+  "logging_dir": "./logs/multitask",
+  "logging_steps": 50,
+  "save_steps": 500,
+  "save_total_limit": 3,
+  "seed": 42,
+  
+  "task_sampling_alpha": 0.5,
+  "task_loss_weights": {
+    "generation": 1.0,
+    "analysis": 1.0,
+    "translation": 1.0
+  },
+  "curriculum_learning": false,
+  "curriculum_schedule": "linear",
+  
+  "predict_with_generate": true,
+  "generation_max_length": 512,
+  "generation_num_beams": 4,
+  "metric_for_best_model": "eval_combined_score",
+  "greater_is_better": true,
+  "load_best_model_at_end": true
+}

@@ -1,0 +1,134 @@
+- question: "This configuration sets up a LAN interface with IP connectivity and enables the port"
+  answer: |
+    interface GigabitEthernet0/1
+     description LAN Interface
+     ip address 192.168.1.1 255.255.255.0
+     no shutdown
+  vendor: cisco
+  metadata:
+    task_type: analysis
+    difficulty: basic
+    category: interface_configuration
+
+- question: "Static routing configuration directing traffic for network 10.0.0.0/8 to gateway 192.168.1.254"
+  answer: "ip route 10.0.0.0 255.0.0.0 192.168.1.254"
+  vendor: cisco
+  metadata:
+    task_type: analysis
+    difficulty: basic
+    category: routing
+
+- question: "OSPF dynamic routing configuration for process 1 advertising local network 192.168.1.0/24 in backbone area"
+  answer: |
+    router ospf 1
+     network 192.168.1.0 0.0.0.255 area 0
+  vendor: cisco
+  metadata:
+    task_type: analysis
+    difficulty: intermediate
+    category: dynamic_routing
+
+- question: "Juniper WAN interface configuration with point-to-point IP addressing"
+  answer: |
+    interfaces {
+        ge-0/0/0 {
+            description "WAN Link";
+            unit 0 {
+                family inet {
+                    address 10.1.1.1/30;
+                }
+            }
+        }
+    }
+  vendor: juniper
+  metadata:
+    task_type: analysis
+    difficulty: basic
+    category: interface_configuration
+
+- question: "Linux network bonding configuration creating link aggregation with two ethernet interfaces and IP assignment"
+  answer: |
+    interfaces:
+      - name: bond0
+        type: bond
+        state: up
+        link-aggregation:
+          mode: balance-rr
+          slaves:
+            - eth0
+            - eth1
+        ipv4:
+          enabled: true
+          address:
+            - ip: 192.168.100.10
+              prefix-length: 24
+      - name: eth0
+        type: ethernet
+        state: up
+      - name: eth1
+        type: ethernet  
+        state: up
+  vendor: nmstate
+  metadata:
+    task_type: analysis
+    difficulty: intermediate
+    category: bonding
+
+- question: "Access control rule permitting HTTP web traffic from local subnet to any destination"
+  answer: "access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 80"
+  vendor: cisco
+  metadata:
+    task_type: analysis
+    difficulty: intermediate
+    category: access_control
+
+- question: "BGP peering configuration establishing connection between AS 65001 and AS 65002"
+  answer: |
+    router bgp 65001
+     neighbor 10.1.1.2 remote-as 65002
+     neighbor 10.1.1.2 activate
+  vendor: cisco
+  metadata:
+    task_type: analysis
+    difficulty: advanced
+    category: bgp_routing
+
+- question: "Global device identification and DNS domain configuration"
+  answer: |
+    hostname Router-Main
+    ip domain-name company.com
+  vendor: cisco
+  metadata:
+    task_type: analysis
+    difficulty: basic
+    category: global_config
+
+- question: "VLAN interface configuration creating tagged VLAN 100 with IP address assignment"
+  answer: |
+    interfaces:
+      - name: vlan100
+        type: vlan
+        state: up
+        vlan:
+          base-iface: eth0
+          id: 100
+        ipv4:
+          enabled: true
+          address:
+            - ip: 172.16.100.1
+              prefix-length: 24
+  vendor: nmstate
+  metadata:
+    task_type: analysis
+    difficulty: intermediate
+    category: vlan_configuration
+
+- question: "Route manipulation policy to modify routing metrics for traffic engineering"
+  answer: |
+    route-map SET-METRIC permit 10
+     set metric 100
+  vendor: cisco
+  metadata:
+    task_type: analysis
+    difficulty: advanced
+    category: route_policy

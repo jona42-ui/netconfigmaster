@@ -1,0 +1,134 @@
+- question: "Configure interface GigabitEthernet 0/1 with IP address 192.168.1.1/24 and description 'LAN Interface'"
+  answer: |
+    interface GigabitEthernet0/1
+     description LAN Interface
+     ip address 192.168.1.1 255.255.255.0
+     no shutdown
+  vendor: cisco
+  metadata:
+    task_type: generation
+    difficulty: basic
+    category: interface_configuration
+
+- question: "Create a static route to network 10.0.0.0/8 via next-hop 192.168.1.254"
+  answer: "ip route 10.0.0.0 255.0.0.0 192.168.1.254"
+  vendor: cisco
+  metadata:
+    task_type: generation
+    difficulty: basic
+    category: routing
+
+- question: "Configure OSPF process 1 and advertise network 192.168.1.0/24 in area 0"
+  answer: |
+    router ospf 1
+     network 192.168.1.0 0.0.0.255 area 0
+  vendor: cisco
+  metadata:
+    task_type: generation
+    difficulty: intermediate
+    category: dynamic_routing
+
+- question: "Set up interface ge-0/0/0 with IP 10.1.1.1/30 and description 'WAN Link'"
+  answer: |
+    interfaces {
+        ge-0/0/0 {
+            description "WAN Link";
+            unit 0 {
+                family inet {
+                    address 10.1.1.1/30;
+                }
+            }
+        }
+    }
+  vendor: juniper
+  metadata:
+    task_type: generation
+    difficulty: basic
+    category: interface_configuration
+
+- question: "Configure a bond interface with eth0 and eth1 as members with IP 192.168.100.10/24"
+  answer: |
+    interfaces:
+      - name: bond0
+        type: bond
+        state: up
+        link-aggregation:
+          mode: balance-rr
+          slaves:
+            - eth0
+            - eth1
+        ipv4:
+          enabled: true
+          address:
+            - ip: 192.168.100.10
+              prefix-length: 24
+      - name: eth0
+        type: ethernet
+        state: up
+      - name: eth1
+        type: ethernet  
+        state: up
+  vendor: nmstate
+  metadata:
+    task_type: generation
+    difficulty: intermediate
+    category: bonding
+
+- question: "Create access list 100 to permit HTTP traffic from 192.168.1.0/24 to any destination"
+  answer: "access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 80"
+  vendor: cisco
+  metadata:
+    task_type: generation
+    difficulty: intermediate
+    category: access_control
+
+- question: "Configure BGP AS 65001 with neighbor 10.1.1.2 in remote AS 65002"
+  answer: |
+    router bgp 65001
+     neighbor 10.1.1.2 remote-as 65002
+     neighbor 10.1.1.2 activate
+  vendor: cisco
+  metadata:
+    task_type: generation
+    difficulty: advanced
+    category: bgp_routing
+
+- question: "Set hostname to 'Router-Main' and domain name to 'company.com'"
+  answer: |
+    hostname Router-Main
+    ip domain-name company.com
+  vendor: cisco
+  metadata:
+    task_type: generation
+    difficulty: basic
+    category: global_config
+
+- question: "Configure VLAN interface with ID 100 and IP address 172.16.100.1/24"
+  answer: |
+    interfaces:
+      - name: vlan100
+        type: vlan
+        state: up
+        vlan:
+          base-iface: eth0
+          id: 100
+        ipv4:
+          enabled: true
+          address:
+            - ip: 172.16.100.1
+              prefix-length: 24
+  vendor: nmstate
+  metadata:
+    task_type: generation
+    difficulty: intermediate
+    category: vlan_configuration
+
+- question: "Create a route-map named 'SET-METRIC' to set metric to 100 for specific prefixes"
+  answer: |
+    route-map SET-METRIC permit 10
+     set metric 100
+  vendor: cisco
+  metadata:
+    task_type: generation
+    difficulty: advanced
+    category: route_policy

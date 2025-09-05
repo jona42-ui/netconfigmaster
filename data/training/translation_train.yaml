@@ -1,0 +1,221 @@
+- source: |
+    interface GigabitEthernet0/1
+     description LAN Interface
+     ip address 192.168.1.1 255.255.255.0
+     no shutdown
+  target: |
+    interfaces:
+      - name: eth0
+        type: ethernet
+        state: up
+        description: LAN Interface
+        ipv4:
+          enabled: true
+          address:
+            - ip: 192.168.1.1
+              prefix-length: 24
+  source_vendor: cisco
+  target_vendor: nmstate
+  metadata:
+    task_type: translation
+    difficulty: basic
+    category: interface_configuration
+
+- source: "ip route 10.0.0.0 255.0.0.0 192.168.1.254"
+  target: |
+    routes:
+      config:
+        - destination: 10.0.0.0/8
+          next-hop-interface: eth0
+          next-hop-address: 192.168.1.254
+          metric: 1
+  source_vendor: cisco
+  target_vendor: nmstate
+  metadata:
+    task_type: translation
+    difficulty: basic
+    category: static_routing
+
+- source: |
+    interfaces {
+        ge-0/0/0 {
+            description "WAN Link";
+            unit 0 {
+                family inet {
+                    address 10.1.1.1/30;
+                }
+            }
+        }
+    }
+  target: |
+    interface GigabitEthernet0/0
+     description WAN Link
+     ip address 10.1.1.1 255.255.255.252
+     no shutdown
+  source_vendor: juniper
+  target_vendor: cisco
+  metadata:
+    task_type: translation
+    difficulty: basic
+    category: interface_configuration
+
+- source: |
+    router ospf 1
+     network 192.168.1.0 0.0.0.255 area 0
+  target: |
+    protocols {
+        ospf {
+            area 0.0.0.0 {
+                interface ge-0/0/1.0;
+            }
+        }
+    }
+  source_vendor: cisco
+  target_vendor: juniper
+  metadata:
+    task_type: translation
+    difficulty: intermediate
+    category: dynamic_routing
+
+- source: |
+    interfaces:
+      - name: bond0
+        type: bond
+        state: up
+        link-aggregation:
+          mode: balance-rr
+          slaves:
+            - eth0
+            - eth1
+        ipv4:
+          enabled: true
+          address:
+            - ip: 192.168.100.10
+              prefix-length: 24
+  target: |
+    interface Port-channel1
+     description Bond Interface
+     ip address 192.168.100.10 255.255.255.0
+     no shutdown
+    !
+    interface GigabitEthernet0/1
+     channel-group 1 mode active
+     no shutdown
+    !
+    interface GigabitEthernet0/2
+     channel-group 1 mode active
+     no shutdown
+  source_vendor: nmstate
+  target_vendor: cisco
+  metadata:
+    task_type: translation
+    difficulty: intermediate
+    category: bonding
+
+- source: "access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 80"
+  target: |
+    firewall {
+        family inet {
+            filter WEB-FILTER {
+                term ALLOW-HTTP {
+                    from {
+                        source-address 192.168.1.0/24;
+                        protocol tcp;
+                        destination-port 80;
+                    }
+                    then accept;
+                }
+            }
+        }
+    }
+  source_vendor: cisco
+  target_vendor: juniper
+  metadata:
+    task_type: translation
+    difficulty: intermediate
+    category: access_control
+
+- source: |
+    router bgp 65001
+     neighbor 10.1.1.2 remote-as 65002
+     neighbor 10.1.1.2 activate
+  target: |
+    protocols {
+        bgp {
+            group EXTERNAL-PEERS {
+                type external;
+                peer-as 65002;
+                neighbor 10.1.1.2;
+            }
+        }
+    }
+  source_vendor: cisco
+  target_vendor: juniper
+  metadata:
+    task_type: translation
+    difficulty: advanced
+    category: bgp_routing
+
+- source: |
+    hostname Router-Main
+    ip domain-name company.com
+  target: |
+    system {
+        host-name Router-Main;
+        domain-name company.com;
+    }
+  source_vendor: cisco
+  target_vendor: juniper
+  metadata:
+    task_type: translation
+    difficulty: basic
+    category: global_config
+
+- source: |
+    interfaces:
+      - name: vlan100
+        type: vlan
+        state: up
+        vlan:
+          base-iface: eth0
+          id: 100
+        ipv4:
+          enabled: true
+          address:
+            - ip: 172.16.100.1
+              prefix-length: 24
+  target: |
+    vlan 100
+     name DATA_VLAN
+    !
+    interface Vlan100
+     description VLAN 100 Interface
+     ip address 172.16.100.1 255.255.255.0
+     no shutdown
+  source_vendor: nmstate
+  target_vendor: cisco
+  metadata:
+    task_type: translation
+    difficulty: intermediate
+    category: vlan_configuration
+
+- source: |
+    route-map SET-METRIC permit 10
+     set metric 100
+  target: |
+    policy-options {
+        policy-statement SET-METRIC {
+            term 10 {
+                then {
+                    metric 100;
+                    accept;
+                }
+            }
+        }
+    }
+  source_vendor: cisco
+  target_vendor: juniper
+  metadata:
+    task_type: translation
+    difficulty: advanced
+    category: route_policy
