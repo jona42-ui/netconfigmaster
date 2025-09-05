@@ -152,7 +152,7 @@ jobs:
           type=raw,value=${{ matrix.target }},enable={{is_default_branch}}
 
     - name: Build Docker image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: .
         target: ${{ matrix.target }}
