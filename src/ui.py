@@ -85,6 +85,9 @@ def save_feedback(command, yaml_config, rating, feedback_file):
         writer.writerow([command, yaml_config, rating, gr.utils.get_timestamp()])
     return "Thank you for your feedback! This helps improve the model."
 
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok"})
 
 def main():
     parser = argparse.ArgumentParser(description="Network Configuration Model UI")
